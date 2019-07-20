@@ -1,35 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-function CustomMessage (props) {
-    if(props.value){
-        return <h2>This is first message</h2>
-    }
-    return <h2>This is second Message</h2>
-}
-
-class Btn extends React.Component{
+class FormField extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            value:true
+            value:''
         }
     }
-    changeMessage = (e)=>{
+    handleChange = (e)=>{
         this.setState({
-            value:!this.state.value
+            value:e.target.value
         })
     }
+    SubmitForm=(e)=>{
+        e.preventDefault();
+        console.log(this.state.value)
+    }
     render(){
-     return(
-        <div>
-            <button onClick={this.changeMessage}> Change Message</button>
-            <CustomMessage value={this.state.value}/>
-         </div>
-     )      
+        return(
+            <form onSubmit={this.SubmitForm}>
+               <textarea value={this.state.value} onChange={this.handleChange} />
+                <button type='submit'>Submit</button>
+            </form>
+        )
     }
 }
+
 ReactDOM.render(
-    <Btn/>,
+    <FormField/>,
     document.getElementById('root')
 )

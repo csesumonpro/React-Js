@@ -1,24 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-class Inc extends React.Component{
+function CustomMessage (props) {
+    if(props.value){
+        return <h2>This is first message</h2>
+    }
+    return <h2>This is second Message</h2>
+}
+
+class Btn extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            counter:0
+            value:true
         }
     }
-    increment = (e)=>{
-        e.preventDefault()
+    changeMessage = (e)=>{
         this.setState({
-            counter:this.state.counter+1
+            value:!this.state.value
         })
     }
     render(){
-        return <button onClick ={this.increment}>Value is {this.state.counter}</button>
+     return(
+        <div>
+            <button onClick={this.changeMessage}> Change Message</button>
+            <CustomMessage value={this.state.value}/>
+         </div>
+     )      
     }
 }
 ReactDOM.render(
-    <Inc/>,
+    <Btn/>,
     document.getElementById('root')
 )
